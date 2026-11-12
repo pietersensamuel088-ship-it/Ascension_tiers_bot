@@ -1,0 +1,15 @@
+[Unit]
+Description=Ascension Tiers Discord Bot Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ascension-tiers-bot
+ExecStart=/opt/ascension-tiers-bot/venv/bin/python bot.py
+Restart=always
+RestartSec=5
+EnvironmentFile=/opt/ascension-tiers-bot/.env
+
+[Install]
+WantedBy=multi-user.target

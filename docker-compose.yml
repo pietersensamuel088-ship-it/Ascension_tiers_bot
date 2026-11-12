@@ -1,0 +1,10 @@
+services:
+  ascension-bot:
+    build: .
+    container_name: ascension_tiers_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Persist SQLite database across container rebuilds/updates
+      - ./ascension_tiers.db:/app/ascension_tiers.db
