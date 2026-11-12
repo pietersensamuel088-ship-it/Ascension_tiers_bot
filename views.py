@@ -331,7 +331,7 @@ class QueueView(ui.View):
 
         # Post session card inside the thread
         session_embed = embeds.build_session_embed(gamemode, player_member, interaction.user, mc_data)
-        session_view = TestingSessionView(thread.id, gamemode, interaction.user.id, player_member.id, self.db)
+        session_view = PersistentTestingSessionView(self.db)
         await thread.send(
             content=f"⚔️ {player_member.mention} has been pulled by tester {interaction.user.mention}!",
             embed=session_embed,
@@ -471,6 +471,10 @@ class ResultSubmitModal(ui.Modal, title="Submit Tier Test Result"):
         except Exception:
             pass
 
+# Backwards compatibility alias
+TestingSessionView = PersistentTestingSessionView
+
+
 
 class PersistentTestingSessionView(ui.View):
     def __init__(self, db: Database):
@@ -554,3 +558,7 @@ class PersistentTestingSessionView(ui.View):
                 await thread.edit(archived=True, locked=True)
         except Exception:
             pass
+
+# Backwards compatibility alias
+TestingSessionView = PersistentTestingSessionView
+
